@@ -1,3 +1,5 @@
+using System.Text.Json;
+using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -7,8 +9,9 @@ namespace EnquiryListener;
 
 public class Function
 {
-    public string FunctionHandler(EnquiryInfo input)
+    public string FunctionHandler(APIGatewayHttpApiV2ProxyRequest input)
     {
-        return input.Email.ToUpper();
+        var enquiry = JsonSerializer.Deserialize<EnquiryInfo>(input.Body) ?? throw new Exception("Could not deserialize body");
+        return enquiry.Email.ToUpper();
     }
 }
