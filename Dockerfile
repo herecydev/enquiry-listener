@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 COPY . .
 RUN dotnet publish -c Release -o /publish
 
