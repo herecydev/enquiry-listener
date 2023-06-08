@@ -1,0 +1,32 @@
+name: Deploy
+on:
+  push:
+    branches: [main]
+env:
+  IMAGE_NAME: "lambda-sharp"
+jobs:
+  build-push-docker:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7
+      - name: Publish
+        run: dotnet build -c Release -o bin
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.DEMO_ECR_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.DEMO_ECR_SECRET_KEY }}
+          aws-region: eu-west-2
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registries: ${{ secrets.AWS_ACCOUNT_ID }}
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
