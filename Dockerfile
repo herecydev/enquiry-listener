@@ -4,4 +4,4 @@ WORKDIR /var/task
 
 COPY "out" .
 
-CMD [ "EnquiryListener::EnquiryListener.Function::FunctionHandler" ]
+CMD [ "EnquiryListener" ]
