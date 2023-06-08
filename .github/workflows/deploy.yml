@@ -2,10 +2,8 @@ name: Deploy
 on:
   push:
     branches: [main]
-env:
-  IMAGE_NAME: "lambda-sharp"
 jobs:
-  build-push-docker:
+  docker:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
