@@ -26,5 +26,5 @@ jobs:
           registries: ${{ secrets.AWS_ACCOUNT_ID }}
       - name: Build Docker image
         run: |
-          docker build -t enquiry-listener .
+          docker build -t enquiry-listener:latest .
           docker push ${{ steps.login-ecr.outputs.registry }}/enquiry-listener:latest
