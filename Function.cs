@@ -7,10 +7,8 @@ namespace EnquiryListener;
 
 public class Function
 {
-    public Casing FunctionHandler(string input, ILambdaContext context)
+    public string FunctionHandler(EnquiryInfo input)
     {
-        return new Casing(input.ToLower(), input.ToUpper());
+        return input.Email.ToUpper();
     }
 }
-
-public record Casing(string Lower, string Upper);
