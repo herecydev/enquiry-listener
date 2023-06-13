@@ -3,6 +3,10 @@ using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.RuntimeSupport;
 using Amazon.Lambda.Serialization.SystemTextJson;
+using Amazon.SQS;
+
+var sqsClient = new AmazonSQSClient();
+await sqsClient.SendMessageAsync(Environment.GetEnvironmentVariable("QueueUrl"), "dan test");
 
 var handler = (APIGatewayHttpApiV2ProxyRequest request, ILambdaContext _) =>
 {
